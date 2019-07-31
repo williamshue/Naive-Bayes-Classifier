@@ -1,0 +1,5 @@
+1. Read data set into program - make sure it's clean
+2. Remove unwanted variables from data set
+3. Understand implementation of the algorithm programatically
+4. Implementation
+5. Produce Delivarables - classifications, frequency dist. between 1 and 2, 
