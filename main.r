@@ -1,7 +1,6 @@
 setwd("/Users/williamshue/Downloads/naive-bayes-classifier")
 #print(getwd())
 
-<<<<<<< HEAD
 dataSet <- read.table("dataSubset.txt")
 
 print(dataSet[1,])
@@ -9,7 +8,6 @@ print(dataSet[1,])
 print('done')
 
 #find mean and median of column 10 and 14
-=======
 #make a data frame from the text file
 subDataSet <- read.table("dataSubset.txt")
 
@@ -28,5 +26,5 @@ print(median(column_10))
 print(mean(column_14))
 print(median(column_14))
 
-print('done')
->>>>>>> First commit
+print('donea')
+
