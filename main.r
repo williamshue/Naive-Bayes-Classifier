@@ -22,9 +22,9 @@ for (i in subSet[,2]){
 #rules for making bins for rooms sizes
 counter <- 1
 for (i in subSet[,1]){ 
-  if(i > 7){
+  if(i >= 7){
     bins[counter,1] <- "large" 
-  } else if(i > 3 && i < 7){
+  } else if(i >= 4 && i < 7){
     bins[counter,1] <- "medium"
   } else {
     bins[counter,1] <- "small"
@@ -35,7 +35,7 @@ for (i in subSet[,1]){
 #rules for making bins for stu. teach. ratio
 counter <- 1
 for (i in subSet[,4]){ 
-  if(i < 16){
+  if(i <= 17){
     bins[counter,4] <- "small class" 
   } else {
     bins[counter,4]<- "large class"
@@ -47,7 +47,7 @@ for (i in subSet[,4]){
 #note! tax threshold changed to 266.5
 counter <- 1
 for (i in subSet[,3]){ 
-  if(i <= 266.5){
+  if(i <= 258){
     bins[counter,3] <- "high tax" 
   } else {
     bins[counter,3]<- "low tax"
