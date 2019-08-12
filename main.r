@@ -291,7 +291,9 @@ for(i in 11:506){
   if(is.element(i, ind_check)){ #skip already processed elements
     i <- i + 1
   }
-  
+
+#i <- 11
+
   pTax_y <- 0
   pTax_n <- 0
   pclassSz_y <- 0
@@ -326,18 +328,181 @@ for(i in 11:506){
     prooms_n <- rooms_PT[1,5]
   }
   
-  p_y <- pTax_y*pclassSz_y*prooms_y
-  p_n <- pTax_n*pclassSz_n*prooms_n
+  p_y <- pTax_y*pclassSz_y*prooms_y*results_PT[1,2]
+  p_n <- pTax_n*pclassSz_n*prooms_n*results_PT[2,2]
+  
+  #update all relevant values 
+  
     
   if(p_y > p_n){
     cat("Y")
     bins[i,6] <- "yes"
+    
+    results_PT[1,1] <- results_PT[1,1] + 1
+    
+    if(bins[i,3]=="low tax"){ #update yes' for taxes
+      tax_PT[2,2] <- tax_PT[2,2] + 1
+    } else {
+      tax_PT[1,2] <- tax_PT[1,2] + 1
+    }
+    
+    if(bins[i,4]=="large class"){ #update yes' for classes
+      classSz_PT[1,2] <- classSz_PT[1,2] + 1
+    } else {
+      classSz_PT[2,2] <- classSz_PT[2,2] + 1
+    }
+    
+    if(bins[i,1]=="large"){ #update yes' for rooms
+      rooms_PT[3,2] <- rooms_PT[3,2] + 1
+    } else if(bins[i,1]=="medium") {
+      rooms_PT[2,2] <- rooms_PT[2,2] + 1
+    } else {
+      rooms_PT[1,2] <- rooms_PT[1,2] + 1
+    }
+    
   } else {
+    cat("N")
     bins[i,6] <- "no"
+    
+    results_PT[2,1] <- results_PT[2,1] + 1
+    
+    if(bins[i,3]=="low tax"){ #update nos for taxes 
+      tax_PT[2,3] <- tax_PT[2,3] + 1
+    } else {
+      tax_PT[1,3] <- tax_PT[1,3] + 1
+    }
+    
+    if(bins[i,4]=="large class"){ #update nos for classes
+      classSz_PT[1,3] <- classSz_PT[1,3] + 1
+    } else {
+      classSz_PT[2,3] <- classSz_PT[2,3] + 1
+    }
+    
+    if(bins[i,1]=="large"){ #update nos' for rooms
+      rooms_PT[3,3] <- rooms_PT[3,3] + 1
+    } else if(bins[i,1]=="medium") {
+      rooms_PT[2,3] <- rooms_PT[2,3] + 1
+    } else {
+      rooms_PT[1,3] <- rooms_PT[1,3] + 1
+    }
+    
   }
+  
+  #now everything's been updated, make sure all rows and columns work right
+  #sorry the code here is a complete and utter disater, i promise i am aware of what functions and loops are
+  #was just struggling to get it to behave correctly, functions coming soon!!!
+  #for rooms
+  rooms_PT[1,1] <- rooms_PT[1,2] + rooms_PT[1,3]
+  rooms_PT[2,1] <- rooms_PT[2,2] + rooms_PT[2,3]
+  rooms_PT[3,1] <- rooms_PT[3,2] + rooms_PT[3,3]
+  rooms_PT[4,1] <- 0
+  rooms_PT[4,1] <- colSums(rooms_PT[1])
+  rooms_PT[4,2] <- 0
+  rooms_PT[4,2] <- colSums(rooms_PT[2])
+  rooms_PT[4,3] <- 0
+  rooms_PT[4,3] <- colSums(rooms_PT[3])
+  
+  rooms_PT[1,4] <- rooms_PT[1,2]/rooms_PT[4,1]
+  rooms_PT[1,5] <- rooms_PT[1,3]/rooms_PT[4,1]
+  
+  rooms_PT[2,4] <- rooms_PT[2,2]/rooms_PT[4,1]
+  rooms_PT[2,5] <- rooms_PT[2,3]/rooms_PT[4,1]
+  
+  rooms_PT[3,4] <- rooms_PT[3,2]/rooms_PT[4,1]
+  rooms_PT[3,5] <- rooms_PT[3,3]/rooms_PT[4,1]
+  
+  rooms_PT[4,4] <- 0
+  rooms_PT[4,4] <- colSums(rooms_PT[4])
+  rooms_PT[4,5] <- 0
+  rooms_PT[4,5] <- colSums(rooms_PT[5])
+  
+  #for class size
+  classSz_PT[1,1] <- classSz_PT[1,2] + classSz_PT[1,3]
+  classSz_PT[2,1] <- classSz_PT[2,2] + classSz_PT[2,3]
+  classSz_PT[3,1] <- 0
+  classSz_PT[3,1] <- colSums(classSz_PT[1])
+  classSz_PT[3,2] <- 0
+  classSz_PT[3,2] <- colSums(classSz_PT[2])
+  
+  classSz_PT[1,4] <- classSz_PT[1,2]/classSz_PT[3,1]
+  classSz_PT[1,5] <- classSz_PT[1,3]/classSz_PT[3,1]
+  
+  classSz_PT[2,4] <- classSz_PT[2,2]/classSz_PT[3,1]
+  classSz_PT[2,5] <- classSz_PT[2,3]/classSz_PT[3,1]
+  
+  classSz_PT[3,4] <- 0
+  classSz_PT[3,4] <- colSums(classSz_PT[4])
+  classSz_PT[3,5] <- 0
+  classSz_PT[3,5] <- colSums(classSz_PT[5])
+  
+  #for taxes
+  tax_PT[1,1] <- tax_PT[1,2] + tax_PT[1,3]
+  tax_PT[2,1] <- tax_PT[2,2] + tax_PT[2,3]
+  tax_PT[3,1] <- 0
+  tax_PT[3,1] <- colSums(tax_PT[1])
+  tax_PT[3,2] <- 0
+  tax_PT[3,2] <- colSums(tax_PT[2])
+  
+  tax_PT[1,4] <- tax_PT[1,2]/tax_PT[3,1]
+  tax_PT[1,5] <- tax_PT[1,3]/tax_PT[3,1]
+  
+  tax_PT[2,4] <- tax_PT[2,2]/tax_PT[3,1]
+  tax_PT[2,5] <- tax_PT[2,3]/tax_PT[3,1]
+  
+  tax_PT[3,4] <- 0
+  tax_PT[3,4] <- colSums(tax_PT[4])
+  tax_PT[3,5] <- 0
+  tax_PT[3,5] <- colSums(tax_PT[5])
+  
+  #for final results PT
+  results_PT[3,1] <- 0
+  results_PT[3,1] <- colSums(results_PT[1])
+  
+  results_PT[1,2] <- results_PT[1,1]/results_PT[3,1]
+  results_PT[2,2] <- results_PT[2,1]/results_PT[3,1]
+
+  results_PT[3,2] <- 0
+  results_PT[3,2] <- colSums(results_PT[2])
 }
 
 print("done")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
