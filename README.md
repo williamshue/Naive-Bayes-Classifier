@@ -33,8 +33,40 @@ Threshold Values for Number of Rooms (property size):
 
 
 # Initial Model
-The initial model created for our classifier was  
 
+The initial model created for our classifier was created according the criteria containted in the spreadsheet in this directory. We first selected the top ten values and then assigned them a 'yes' or 'no' value based on the thresholds contained in the spreadsheet. We found that this this process caused our model to be somewhat lopsided and decided to select other random indexes to perform the same process on; this is why the indexes are 1-10 and then become chaotic.
+
+This still left the model somehwat lopsided, with some manual tweaking of the 'yes' and 'no' results in the model we eventually settled on an inital model that gave a good spread of 'yes' and 'no' results on the select data. The following table illustrates the version of the model that was run across the rest of our data set: (this process is explained in the next section)
+
+| Row Number | Number of Rooms (House Size) | Property Tax | Student-Teacher Class Ratio | Yes or No |
+|------------|------------------------------|--------------|-----------------------------|-----------|
+| 1          | medium                       | low tax      | small class                 | yes       |
+| 2          | medium                       | high tax     | large class                 | yes       |
+| 3          | large                        | high tax     | large class                 | yes       |
+| 4          | medium                       | high tax     | large class                 | yes       |
+| 5          | large                        | high tax     | large class                 | no        |
+| 6          | medium                       | high tax     | large class                 | yes       |
+| 7          | medium                       | low tax      | small class                 | no        |
+| 8          | medium                       | low tax      | small class                 | no        |
+| 9          | medium                       | low tax      | small class                 | no        |
+| 10         | medium                       | low tax      | small class                 | no        |
+| 56         | large                        | high tax     | large class                 | no        |
+| 99         | large                        | low tax      | large class                 | no        |
+| 145        | medium                       | low tax      | small class                 | no        |
+| 187        | large                        | high tax     | large class                 | yes       |
+| 306        | medium                       | high tax     | large class                 | yes       |
+| 346        | medium                       | low tax      | large class                 | no        |
+| 369        | medium                       | low tax      | large class                 | yes       |
+| 372        | medium                       | low tax      | large class                 | yes       |
+| 415        | medium                       | low tax      | large class                 | yes       |
+| 506        | medium                       | low tax      | large class                 | no        |
+
+
+Along with assigning yes and no values to each of the indexes used in the inital model. We also needed to find the probabiliaties for each variable. The probabilaties for each variable allowed us to then apply Bayes equation and assin 'yes' and 'no' values to all of the other indexes. With each assignment of 'yes' and no the overall model was updated, making it more and more accurate (this process is also explained in the next section). Below are the initial probabilaties tables for each variable used: 
+
+-- pu tables here
+
+Note: as mentioned above, we initially started with the intention of using 5 variables but scaled down to 3 to simplify the process and because some of the variables were not well distributed for this use case. Improvemnts in these factors can be made in the future. If you are interested in what the probablaties for these other two variables, feel free to run the 'main.r' file and see their results.
 
 # Applying the Model
 
