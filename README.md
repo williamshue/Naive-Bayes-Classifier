@@ -72,6 +72,7 @@ Probability Table for Property Tax:
 | Low     | 8        | 6         | 2        | 0.3    | 0.1   |
 | Results | 20       | 10        | 10       | 0.5    | 0.5   |
 
+
 Probability Table for Student Teacher Class Ratio: 
 
 |         | Quantity | Yes Count | No Count | P(Yes) | P(No) |
@@ -95,10 +96,25 @@ Note: as mentioned above, we initially started with the intention of using 5 var
 
 # Applying the Model
 
+After the probabilaties for each of the variables in the initial model had been determined it was simply time to apply the model to the rest of our data set. This meant applying the following equations to every index in the rest of the data set, the 20 entries which had already been labeled with a  'yes' or 'no' to produce the model described above were skipped.
 
 ![Bayes Equations](CodeCogsEqn.gif)
 
+The following pseudo-code is how these equations were applied to the rest of the data set:
 
+    For all indexes:
+    - Verify it has not already been labeled (skip it if it has)
+      - Check the the tax bin it's using (high or low)
+      - Check the class ratio bin it's using (small or large)
+      - Check the room size bin it's using (small medium large)
+        - Plug the corespondings bin and 'yes' or 'no' values into the equations above
+        - If 'yes' > 'no' prob
+          - label index 'yes' 
+          - else
+          - label index 'no'
+      - Based on the results, update the tax, class-ratio, room size and overall results prob. tables
+    -Repeat for next index
 
+As is illustrated in the pseudo-code after the entries of every index are processed the model gets more accurate as it has been fed more data. This means that anyone who has data on the criteria the model is designed to process could 'bin' that data and have this program process it, the program would then tell them with how much confidence they should or should not buy the house based on the 3 criteria.
 
 # Results
