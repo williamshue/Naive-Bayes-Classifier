@@ -19,7 +19,7 @@ for (i in subSet[,2]){
   counter <- counter + 1
 }
 
-#rules for making bins for rooom sizes
+#rules for making bins for rooms sizes
 counter <- 1
 for (i in subSet[,1]){ 
   if(i > 7){
@@ -285,6 +285,7 @@ results_PT[2,2] <- no_count/20
 results_PT[3,2] <- colSums(results_PT[2])
 
 #now update the rest of the model
+#tax, class size & rooms
 
 for(i in 11:506){
   if(is.element(i, ind_check)){ #skip already processed elements
@@ -293,30 +294,48 @@ for(i in 11:506){
   
   pTax_y <- 0
   pTax_n <- 0
+  pclassSz_y <- 0
+  pclassSz_n <- 0
+  prooms_y <- 0
+  prooms_n <- 0
   
   if(bins[i,3]=="low tax"){
     pTax_y <- tax_PT[2,4]
     pTax_n <- tax_PT[2,5]
-    cat("case1")
-    cat("\n")
   } else {
     pTax_y <- tax_PT[1,4]
     pTax_n <- tax_PT[1,5]
-    cat("case2")
-    cat("\n")
   }
   
-  if(pTax_y > pTax_n){
+  if(bins[i,4]=="large class"){
+    pclassSz_y <- classSz_PT[1,4]
+    pclassSz_n <- classSz_PT[1,5]
+  } else {
+    pclassSz_y <- classSz_PT[2,4]
+    pclassSz_n <- classSz_PT[2,5]
+  }
+  
+  if(bins[i,1]=="large"){
+    prooms_y <- rooms_PT[1,4]
+    prooms_n <- rooms_PT[1,5]
+  } else if(bins[i,1]=="medium") {
+    prooms_y <- rooms_PT[2,4]
+    prooms_n <- rooms_PT[2,5]
+  } else {
+    prooms_y <- rooms_PT[1,4]
+    prooms_n <- rooms_PT[1,5]
+  }
+  
+  p_y <- pTax_y*pclassSz_y*prooms_y
+  p_n <- pTax_n*pclassSz_n*prooms_n
+    
+  if(p_y > p_n){
+    cat("Y")
     bins[i,6] <- "yes"
   } else {
     bins[i,6] <- "no"
   }
-    
 }
-
-
-
-
 
 print("done")
 
