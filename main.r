@@ -425,6 +425,8 @@ for(i in 11:506){
   classSz_PT[3,1] <- colSums(classSz_PT[1])
   classSz_PT[3,2] <- 0
   classSz_PT[3,2] <- colSums(classSz_PT[2])
+  classSz_PT[3,3] <- 0
+  classSz_PT[3,3] <- colSums(classSz_PT[3])
   
   classSz_PT[1,4] <- classSz_PT[1,2]/classSz_PT[3,1]
   classSz_PT[1,5] <- classSz_PT[1,3]/classSz_PT[3,1]
@@ -444,6 +446,8 @@ for(i in 11:506){
   tax_PT[3,1] <- colSums(tax_PT[1])
   tax_PT[3,2] <- 0
   tax_PT[3,2] <- colSums(tax_PT[2])
+  tax_PT[3,3] <- 0
+  tax_PT[3,3] <- colSums(tax_PT[3])
   
   tax_PT[1,4] <- tax_PT[1,2]/tax_PT[3,1]
   tax_PT[1,5] <- tax_PT[1,3]/tax_PT[3,1]
@@ -466,5 +470,7 @@ for(i in 11:506){
   results_PT[3,2] <- 0
   results_PT[3,2] <- colSums(results_PT[2])
 }
+
+
 
 print("done")

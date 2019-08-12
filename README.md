@@ -94,6 +94,14 @@ Probability Table for Number of Rooms (house size):
 
 Note: as mentioned above, we initially started with the intention of using 5 variables but scaled down to 3 to simplify the process and because some of the variables were not well distributed for this use case. Improvemnts in these factors can be made in the future. If you are interested in what the probablaties for these other two variables, feel free to run the 'main.r' file and see their results.
 
+To wrap up this section here is the final table covering the probablaties of all the tables above, how many overall 'yes'', 'nos' and their corresponding probabilaties is outlined here: (this table is very important in the us of the model below)
+
+|         | Yes or No | P(Yes) or P(No) |
+|---------|-----------|-----------------|
+| Yes     | 10        | 0.5             |
+| No      | 10        | 0.5             |
+| Results | 20        | 1.0             |
+
 # Applying the Model
 
 After the probabilaties for each of the variables in the initial model had been determined it was simply time to apply the model to the rest of our data set. This meant applying the following equations to every index in the rest of the data set, the 20 entries which had already been labeled with a  'yes' or 'no' to produce the model described above were skipped.
@@ -118,3 +126,46 @@ The following pseudo-code is how these equations were applied to the rest of the
 As is illustrated in the pseudo-code after the entries of every index are processed the model gets more accurate as it has been fed more data. This means that anyone who has data on the criteria the model is designed to process could 'bin' that data and have this program process it, the program would then tell them with how much confidence they should or should not buy the house based on the 3 criteria.
 
 # Results
+
+Overall desipte the initial issues that our data caused such as difficutly putting it into the right bins, it's lopsided spread and the resulting issues with the initial model itself, the program was a success. The table below is the same as the overall probabilaties table after the model has been applied to the entire data set: 
+
+|         | Yes or No | P(Yes) or P(No) |
+|---------|-----------|-----------------|
+| Yes     | 439        | 0.8524272             |
+| No      | 76        | 0.1475728             |
+| Results | 515        | 1.0000000             |
+
+For the sake of completness here are the final probabilaties for all other variables: 
+
+Probability Table for Property Tax: 
+
+|         | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|---------|----------|-----------|----------|--------|-------|
+| High    | 83       | 58         | 25        | 0.1126214    | 0.04854369   |
+| Low     | 432        | 381             | 51        | 0.7398058        | 0.09902913   |
+| Results | 515       | 439        | 76           | 0.8524272    | 0.14757282   |
+
+
+Probability Table for Student Teacher Class Ratio: 
+
+|         | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|---------|----------|-----------|----------|--------|-------|
+| Large   | 388       | 351         | 37        | 0.6815534   | 0.07184466  |
+| Small   | 127        | 88         | 39        | 0.1708738   | 0.07572816  |
+| Results | 515       | 439        | 76       | 0.8524272   | 0.14757282  |
+
+
+Probability Table for Number of Rooms (house size): 
+
+|          | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|----------|----------|-----------|----------|--------|-------|
+| Small    | 2        | 0         | 2        | 0.000000000    | 0.003883495   |
+| Medium   | 447       | 437         | 10       | 0.848543689    | 0.019417476  |
+| Large    | 66        | 2         | 64      |  0.003883495   | 0.124271845  |
+| Results  | 515       | 439        | 76       | 0.852427184    | 0.147572816  |
+
+In conclusion this program does sucessfuly classify wether or not a user should or should not buy a property based on given data using Bayseian classification and machine learning model. The results are skewed such that the spread of the data is abnormal, for example, it is highly likely the result will be a 'yes' as opposed to a 'no', this indicates there are improvemnts to be made, although the program is in fact fully functional. 
+
+# Future Work
+
+In the future there are many steps which can be taken to improve this model while still using Naive Bayes. For example, a thurough analysis of the distribution of each of the variables and correct action being taken to make them as desirable as possible for the program would be a good first step. Also,  better determination for the bin thresholds should be made and an overall bigger data set would allow for the model to be setup and trained in a more accurate manner. Lastly the program itself can be optomized. 'main.r' which contains the most important script for the project does not run in the most effiecnt runtime and is not broken down into managable chunks and functions. This can be changed in the future for better use comprehension and program fine tuning.
