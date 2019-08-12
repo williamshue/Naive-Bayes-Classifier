@@ -1,4 +1,4 @@
-setwd("/Users/williamshue/Downloads/naive-bayes-classifier-master")
+#setwd("/Users/williamshue/Downloads/naive-bayes-classifier-master")
 #read the data from the text file in as a matrix, data frame
 subSet <- read.table("dataSubset.txt")
 
@@ -10,7 +10,7 @@ colnames(bins) <- x
 counter <- 1
 for (i in subSet[,2]){ 
   if(i > 7){
-    bins[counter,2] <- "far aray" 
+    bins[counter,2] <- "far" 
   } else if(i > 3 && i < 7){    
     bins[counter,2] <- "moderate"
   } else {
@@ -44,9 +44,10 @@ for (i in subSet[,4]){
 }
 
 #rules for making bins for property tax
+#note! tax threshold changed to 266.5
 counter <- 1
 for (i in subSet[,3]){ 
-  if(i <= 400){
+  if(i <= 266.5){
     bins[counter,3] <- "high tax" 
   } else {
     bins[counter,3]<- "low tax"
@@ -65,7 +66,7 @@ for (i in subSet[,5]){
   counter <- counter + 1
 }
 
-#enter the first ten yes and no (buy or not buy) into the matrix (hardcoded), as the values were determined in the excel spreadsheet
+#enter the manually calculated yes' and nos from the spreadsheet
 bins[1,6] <- "yes"
 bins[2,6] <- "yes"
 bins[3,6] <- "yes"
@@ -76,6 +77,18 @@ bins[7,6] <- "no"
 bins[8,6] <- "no"
 bins[9,6] <- "no"
 bins[10,6] <- "no"
+
+bins[56,6] <- "yes"
+bins[99,6] <- "yes"
+bins[145,6] <- "no"
+bins[187,6] <- "yes"
+bins[372,6] <- "yes"
+bins[369,6] <- "yes"
+bins[346,6] <- "no"
+bins[306,6] <- "yes"
+bins[415,6] <- "yes"
+bins[506,6] <- "no"
+
 
 #create probability table for highway data
 highway_PT <- data.frame(matrix(0, ncol = 5, nrow = 4))
@@ -112,8 +125,11 @@ colnames(tax_PT) <- x
 x <- c("high", "low", "results")
 rownames(tax_PT) <- x
 
+#array of indexes to check
+ind_check <- c(1,2,3,4,5,6,7,8,9,10,56,99,145,187,372,369,346,306,415,506)
+
 #populate frequency tables for given factors
-for(i in 1:10){
+for(i in ind_check){
   
   #rules for when a yes (buy) is encountered
   if(bins[i,6] == "yes"){
@@ -141,10 +157,10 @@ for(i in 1:10){
     }
     
     #rules for prop tax.
-    if(bins[i,3] == "high tax"){
+    if(bins[i,3] == "low tax"){
       tax_PT[1,2] <- tax_PT[1,2] + 1
     }
-    if(bins[i,2] == "low tax"){
+    if(bins[i,3] == "high tax"){
       tax_PT[2,2] <- tax_PT[2,2] + 1
     }
     
@@ -191,10 +207,10 @@ for(i in 1:10){
     }
     
     #rules for prop tax.
-    if(bins[i,3] == "high tax"){
+    if(bins[i,3] == "low tax"){
       tax_PT[1,3] <- tax_PT[1,3] + 1
     }
-    if(bins[i,2] == "low tax"){
+    if(bins[i,3] == "high tax"){
       tax_PT[2,3] <- tax_PT[2,3] + 1
     }
     
@@ -221,8 +237,9 @@ populate_matrix <- function(your_matrix){
     your_matrix[i,1] <- rowSums(your_matrix[i,])
   }
   for(i in 1:nrow(your_matrix)-1){
-    your_matrix[i,4] <- your_matrix[i,2]/10
-    your_matrix[i,5] <- your_matrix[i,3]/10
+    #the 20 is hardcoded.
+    your_matrix[i,4] <- your_matrix[i,2]/20
+    your_matrix[i,5] <- your_matrix[i,3]/20
   }
   for(i in 1:5){
     your_matrix[nrow(your_matrix),i] <- colSums(your_matrix[i])
