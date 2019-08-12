@@ -24,7 +24,7 @@ counter <- 1
 for (i in subSet[,1]){ 
   if(i > 7){
     bins[counter,1] <- "large" 
-  } else if(i > 6 && i < 7){
+  } else if(i > 3 && i < 7){
     bins[counter,1] <- "medium"
   } else {
     bins[counter,1] <- "small"
@@ -78,8 +78,8 @@ bins[8,6] <- "no"
 bins[9,6] <- "no"
 bins[10,6] <- "no"
 
-bins[56,6] <- "yes"
-bins[99,6] <- "yes"
+bins[56,6] <- "no"
+bins[99,6] <- "no"
 bins[145,6] <- "no"
 bins[187,6] <- "yes"
 bins[372,6] <- "yes"
@@ -328,6 +328,8 @@ for(i in 11:506){
     prooms_n <- rooms_PT[1,5]
   }
   
+  #this is the line where bayes formula is actually used to calculate the probability of buy or not based on given factors
+  #whicever one is bigger wins
   p_y <- pTax_y*pclassSz_y*prooms_y*results_PT[1,2]
   p_n <- pTax_n*pclassSz_n*prooms_n*results_PT[2,2]
   
@@ -466,44 +468,3 @@ for(i in 11:506){
 }
 
 print("done")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
