@@ -9,9 +9,9 @@ colnames(bins) <- x
 #rules for making bins for highway
 counter <- 1
 for (i in subSet[,2]){ 
-  if(i > 7){
+  if(i > 4){
     bins[counter,2] <- "far" 
-  } else if(i > 3 && i < 7){    
+  } else if(i > 2 && i < 4){    
     bins[counter,2] <- "moderate"
   } else {
     bins[counter,2] <- "nearby"
@@ -22,9 +22,9 @@ for (i in subSet[,2]){
 #rules for making bins for rooom sizes
 counter <- 1
 for (i in subSet[,1]){ 
-  if(i > 7.2){
+  if(i > 7){
     bins[counter,1] <- "large" 
-  } else if(i > 5.2 && i < 7.2){
+  } else if(i > 6 && i < 7){
     bins[counter,1] <- "medium"
   } else {
     bins[counter,1] <- "small"
@@ -35,7 +35,7 @@ for (i in subSet[,1]){
 #rules for making bins for stu. teach. ratio
 counter <- 1
 for (i in subSet[,4]){ 
-  if(i < 18.9){
+  if(i < 16){
     bins[counter,4] <- "small class" 
   } else {
     bins[counter,4]<- "large class"
@@ -58,7 +58,7 @@ for (i in subSet[,3]){
 #rules for making bins for property value
 counter <- 1
 for (i in subSet[,5]){ 
-  if(i < 37.30){
+  if(i < 32){
     bins[counter,5] <- "high val." 
   } else {
     bins[counter,5]<- "low val."
@@ -286,9 +286,40 @@ results_PT[3,2] <- colSums(results_PT[2])
 
 #now update the rest of the model
 
+for(i in 11:506){
+  if(is.element(i, ind_check)){ #skip already processed elements
+    i <- i + 1
+  }
+  
+  pTax_y <- 0
+  pTax_n <- 0
+  
+  if(bins[i,3]=="low tax"){
+    pTax_y <- tax_PT[2,4]
+    pTax_n <- tax_PT[2,5]
+    cat("case1")
+    cat("\n")
+  } else {
+    pTax_y <- tax_PT[1,4]
+    pTax_n <- tax_PT[1,5]
+    cat("case2")
+    cat("\n")
+  }
+  
+  if(pTax_y > pTax_n){
+    bins[i,6] <- "yes"
+  } else {
+    bins[i,6] <- "no"
+  }
+    
+}
+
+
+
 
 
 print("done")
- 
+
+
 
 
