@@ -64,11 +64,37 @@ This still left the model somehwat lopsided, with some manual tweaking of the 'y
 
 Along with assigning yes and no values to each of the indexes used in the inital model. We also needed to find the probabiliaties for each variable. The probabilaties for each variable allowed us to then apply Bayes equation and assin 'yes' and 'no' values to all of the other indexes. With each assignment of 'yes' and no the overall model was updated, making it more and more accurate (this process is also explained in the next section). Below are the initial probabilaties tables for each variable used: 
 
--- pu tables here
+Probability Table for Property Tax: 
+
+|         | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|---------|----------|-----------|----------|--------|-------|
+| High    | 12       | 4         | 8        | 0.2    | 0.4   |
+| Low     | 8        | 6         | 2        | 0.3    | 0.1   |
+| Results | 20       | 10        | 10       | 0.5    | 0.5   |
+
+Probability Table for Student Teacher Class Ratio: 
+
+|         | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|---------|----------|-----------|----------|--------|-------|
+| Large   | 14       | 9         | 5        | 0.45   | 0.25  |
+| Small   | 6        | 1         | 5        | 0.05   | 0.25  |
+| Results | 20       | 10        | 10       | 0.50   | 0.50  |
+
+
+Probability Table for Number of Rooms (house size): 
+
+|          | Quantity | Yes Count | No Count | P(Yes) | P(No) |
+|----------|----------|-----------|----------|--------|-------|
+| Small    | 0        | 0         | 0        | 0.0    | 0.0   |
+| Medium   | 15       | 8         | 7        | 0.4    | 0.35  |
+| Large    | 5        | 2         | 3        | 0.1    | 0.15  |
+| Results  | 20       | 10        | 10       | 0.5    | 0.05  |
+
 
 Note: as mentioned above, we initially started with the intention of using 5 variables but scaled down to 3 to simplify the process and because some of the variables were not well distributed for this use case. Improvemnts in these factors can be made in the future. If you are interested in what the probablaties for these other two variables, feel free to run the 'main.r' file and see their results.
 
 # Applying the Model
+
 
 ![Bayes Equations](CodeCogsEqn.gif)
 
