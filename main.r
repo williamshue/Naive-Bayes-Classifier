@@ -125,6 +125,15 @@ colnames(tax_PT) <- x
 x <- c("high", "low", "results")
 rownames(tax_PT) <- x
 
+
+#create probability table for overall results
+results_PT <- data.frame(matrix(0, ncol = 2, nrow = 3))
+x <- c("yes/no", "P(y)/p(n)")
+colnames(results_PT) <- x
+x <- c("yes", "no", "totals")
+rownames(results_PT) <- x
+
+
 #array of indexes to check
 ind_check <- c(1,2,3,4,5,6,7,8,9,10,56,99,145,187,372,369,346,306,415,506)
 
@@ -254,6 +263,28 @@ tax_PT <- populate_matrix(tax_PT[])
 classSz_PT <- populate_matrix(classSz_PT[])
 value_PT <- populate_matrix(value_PT[])
 
+#populate results population table
+
+yes_count <- 0
+no_count <- 0
+for(i in ind_check){
+  if(bins[i,6] == "yes"){
+    yes_count <- yes_count + 1
+  }
+  if(bins[i,6] == "no"){
+    no_count <- no_count + 1
+  }
+}
+
+results_PT[1,1] <- yes_count
+results_PT[2,1] <- no_count
+results_PT[3,1] <- colSums(results_PT[1])
+#the 20 is hardcoded
+results_PT[1,2] <- yes_count/20
+results_PT[2,2] <- no_count/20
+results_PT[3,2] <- colSums(results_PT[2])
+
+#now update the rest of the model
 
 
 
