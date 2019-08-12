@@ -34,3 +34,13 @@ Threshold Values for Number of Rooms (property size):
 
 # Initial Model
 The initial model created for our classifier was  
+
+
+# Applying the Model
+
+![Bayes Equations](CodeCogsEqn.gif)
+
+
+
+
+# Results
